@@ -100,18 +100,18 @@
                 <div class="details">
                   <div class="now-playing">PLAYING x OF y</div>
                   <div class="track-art"><img src="/image/1.jpg" alt=""></div>
-                  <div class="track-name">Track Name</div>
+                  <div class="track-name" id="trackName">Track Name</div>
                   <div class="track-artist">Track Artist</div>
                 </div>
              
                 <div class="buttons">
-                  <button class="prev-track" onclick="prevTrack()">
+                  <button class="prev-track btn" id="previous">
                     <i class="fa fa-step-backward fa-2x"></i>
                   </button>
-                  <button class="playpause-track" onclick="playpauseTrack()">
+                  <button class="playpause-track btn" id="playpause">
                     <i class="fa fa-play-circle fa-5x"></i>
                   </button>
-                  <button class="next-track" onclick="nextTrack()">
+                  <button class="next-track btn" id="next">
                     <i class="fa fa-step-forward fa-2x"></i>
                   </button>
                 </div>
@@ -119,14 +119,14 @@
                 <div class="slider_container">
                   <div class="current-time">00:00</div>
                   <input type="range" min="1" max="100"
-                    value="0" class="seek_slider" onchange="seekTo()">
+                    value="0" class="seek_slider" id="audioSlider">
                   <div class="total-duration">00:00</div>
                 </div>
              
                 <div class="slider_container">
                   <i class="fa fa-volume-down"></i>
                   <input type="range" min="1" max="100"
-                    value="99" class="volume_slider" onchange="setVolume()">
+                    value="99" class="volume_slider" id="volumeSlider">
                   <i class="fa fa-volume-up"></i>
                 </div>
             </div>
@@ -135,7 +135,43 @@
 
     </div>
 </body>
-<script type="module" src="/js/indexx.js"></script>
+<script src="/js/indexx.js" ></script>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var prevbutton = document.getElementById('previous');
+        prevbutton.addEventListener('click', function() {
+            prevTrack();
+        });
+
+        var playbutton = document.getElementById('playpause');
+        prevbutton.addEventListener('click', function() {
+            playpauseTrack();
+        });
+
+        var nextbutton = document.getElementById('next');
+        nextbutton.addEventListener('click', function() {
+            nextTrack();
+        });
+
+        const audioSlider = document.getElementById('audioSlider');
+        audioSlider.addEventListener('change',function(){
+            seekTo();
+        });
+
+        const volumeSlider = document.getElementById("volumeSlider");
+        volumeSlider.addEventListener("change", function () {
+           setVolume();
+       });
+
+    });
+</script>
+
+
+
 </html>
 
 
