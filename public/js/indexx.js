@@ -73,50 +73,46 @@ function resetValues() {
 function playpauseTrack() {
   // Switch between playing and pausing
   // depending on the current state
-  if (!isPlaying) playTrack();
-  else pauseTrack();
-}
-
-function playTrack() {
-  // Play the loaded track
-  curr_track.play();
-  isPlaying = true;
-
-  // Replace icon with the pause icon
-  playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
-}
-
-function pauseTrack() {
-  // Pause the loaded track
-  curr_track.pause();
-  isPlaying = false;
-
-  // Replace icon with the play icon
-  playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';
+  // console.log("PLayPause is called");
+  if (curr_track.paused) {
+    curr_track.play();
+    isPlaying = true; // Update the isPlaying flag
+    playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>'; // Change icon to pause
+  } else {
+    curr_track.pause();
+    isPlaying = false; // Update the isPlaying flag
+    playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>'; // Change icon to play
+  }
 }
 
 function nextTrack() {
   // Go back to the first track if the
   // current one is the last in the track list
+  // console.log("nextTrack() is called");
   if (track_index < track_list.length - 1) track_index += 1;
   else track_index = 0;
 
   // Load and play the new track
   loadTrack(track_index);
-  playTrack();
+  // playTrack();
+  playpauseTrack();
+  // If the player was playing, play the new track
+  // curr_track.play();
+  // if (isPlaying) {
+  // }
 }
 
 function prevTrack() {
   // Go back to the last track if the
   // current one is the first in the track list
+  // console.log("prevTrack() is called");
   if (track_index > 0) track_index -= 1;
   else track_index = track_list.length - 1;
 
   // Load and play the new track
   loadTrack(track_index);
-  playTrack();
+  playpauseTrack();
 }
-
 
 function seekTo() {
   // Calculate the seek position by the
@@ -174,3 +170,51 @@ function seekUpdate() {
 
 // Load the first track in the tracklist
 loadTrack(track_index);
+
+// NEW PLAYLIST FORM
+
+function removeBlock() {
+  const new_playlist = document.querySelector(".new-playlist");
+  console.log("new playlist is removed");
+  new_playlist.style.display = "none";
+  const lines = document.querySelectorAll(".lines");
+  lines.forEach((line) => {
+    line.style.opacity = "1";
+  });
+}
+
+function openBlock() {
+  const new_playlist = document.querySelector(".new-playlist");
+  console.log("new playlist is opened");
+  new_playlist.style.display = "block";
+  const lines = document.querySelectorAll(".lines");
+  lines.forEach((line) => {
+    line.style.opacity = "0.5";
+  });
+  new_playlist.style.opacity = "1";
+}
+
+function addItem(value) {
+  
+  const sidebar = document.querySelector(".sidebar");
+
+  // Create the main container div with class 'box'
+  const boxDiv = document.createElement("div");
+  boxDiv.classList.add("box");
+
+  // Create the image element and set its src attribute
+  // const icon = document.createElement("i");
+  // img.src = "/image/2.jpg";
+
+  // Create the figcaption element and set its text content
+  const figcaption = document.createElement("figcaption");
+  figcaption.textContent = `${value}`;
+
+  // Append the image and figcaption elements to the boxDiv
+  boxDiv.appendChild(img);
+  boxDiv.appendChild(figcaption);
+
+  // Append the boxDiv to the desired parent element in the DOM
+  // For example, if you want to append it to the body:
+  sidebar.appendChild(boxDiv);
+}

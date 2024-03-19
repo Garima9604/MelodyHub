@@ -58,7 +58,7 @@ header i{
 }
 .sidebar i{
     border: none;
-    padding:0 25%;
+    padding:25% 25%;
     font-size: 45px;
     cursor: pointer;
     transition: transform .2s;
@@ -75,20 +75,22 @@ header i{
     margin: auto;
     margin-top: 55px;
     border-radius: 10px;
-    
+    display: flex;
+    background: rgb(79, 78, 78);
 }
-.box img{
-    height: 10vh;
-    border-radius: 10px;
+.box i{
+    color: white;
+    font-size: 30px;
 }
+
 .box figcaption{
     padding-top: 5px;
     cursor: pointer;
 }
-.plus{
-    background: rgb(75, 75, 75);
+#plus{
+    /* background: rgb(75, 75, 75); */
     /* margin: auto; */
-    padding: 15px 0 0 5px ;
+    /* padding: 15px 0 0 5px ; */
 }
 
 .new-playlist{
@@ -100,6 +102,11 @@ header i{
     background: rgb(40, 40, 40);
     border-radius: 30px;
     box-shadow: 0 0 20px inset white;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 10%;
+    z-index: 99999;
 }
 .new-playlist input{
     padding: 10px;
@@ -110,10 +117,8 @@ header i{
 }
 .new-playlist i{
     cursor: pointer;
-    position: absolute;
     font-size: 30px;
-    left: 48%;
-    top: 62%;
+    margin-left: 85%;
 }
 
 
@@ -140,7 +145,6 @@ header i{
 
 .lines{
     padding: 5px ;
-    /* border: 2px solid white; */
     box-shadow: 0px -10px 20px -20px white,
         0px 10px 20px -20px white;
 }
@@ -227,9 +231,12 @@ header i{
     justify-content: center;
     box-shadow: 0 0 15px white;
     border-radius: 20px;
-    width: 25vw;
+    width: 20vw;
 }
-    
+
+
+
+
 .details {
     display: flex;
     align-items: center;
@@ -266,7 +273,6 @@ header i{
     font-size: 30px;
     color: black;
     border-radius: 30px;
-    /* height: 60px; */
 }
     
 .playpause-track, .prev-track, .next-track {
@@ -334,4 +340,4 @@ i.fa-volume-down, i.fa-volume-up {
 
 i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward {
     cursor: pointer;
-}
+} 
