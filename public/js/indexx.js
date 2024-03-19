@@ -175,7 +175,7 @@ loadTrack(track_index);
 
 function removeBlock() {
   const new_playlist = document.querySelector(".new-playlist");
-  console.log("new playlist is removed");
+  // console.log("new playlist is removed");
   new_playlist.style.display = "none";
   const lines = document.querySelectorAll(".lines");
   lines.forEach((line) => {
@@ -185,7 +185,7 @@ function removeBlock() {
 
 function openBlock() {
   const new_playlist = document.querySelector(".new-playlist");
-  console.log("new playlist is opened");
+  // console.log("new playlist is opened");
   new_playlist.style.display = "block";
   const lines = document.querySelectorAll(".lines");
   lines.forEach((line) => {
@@ -195,26 +195,57 @@ function openBlock() {
 }
 
 function addItem(value) {
-  
   const sidebar = document.querySelector(".sidebar");
 
   // Create the main container div with class 'box'
   const boxDiv = document.createElement("div");
   boxDiv.classList.add("box");
 
-  // Create the image element and set its src attribute
-  // const icon = document.createElement("i");
-  // img.src = "/image/2.jpg";
+  // Create the <i> element
+  const icon = document.createElement("i");
+
+  // Add classes to the <i> element
+  icon.classList.add("fa-solid", "fa-music");
+
+  // Optionally, if you want to use Font Awesome icons with the 'fa' class:
+  icon.classList.add("fa");
+
+  boxDiv.appendChild(icon);
 
   // Create the figcaption element and set its text content
   const figcaption = document.createElement("figcaption");
   figcaption.textContent = `${value}`;
 
   // Append the image and figcaption elements to the boxDiv
-  boxDiv.appendChild(img);
+  // boxDiv.appendChild(img);
   boxDiv.appendChild(figcaption);
 
   // Append the boxDiv to the desired parent element in the DOM
   // For example, if you want to append it to the body:
   sidebar.appendChild(boxDiv);
+}
+
+
+//QUEUELIST
+
+function showQueueList(){
+  const songList = document.querySelector('.songLists');
+  // console.log("show queue in js file");
+  songList.style.display = 'block';
+  const lines = document.querySelectorAll(".lines");
+  lines.forEach((line) => {
+    line.style.opacity = "0.5";
+  });
+  songList.style.opacity = "1";
+}
+
+
+function removeQueueList(){
+  const songList = document.querySelector('.songLists');
+  // console.log("Remove Queue from js file ");
+  songList.style.display = 'none';
+  const lines = document.querySelectorAll(".lines");
+  lines.forEach((line)=>{
+    line.style.opacity="1"
+  });
 }
