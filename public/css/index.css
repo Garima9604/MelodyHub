@@ -132,12 +132,13 @@ figcaption {
 
 
 .new-playlist {
-    height: 30vh;
+    height: 40vh;
     border: 2px solid white;
     width: 40vw;
     text-align: center;
     padding-top: 20px;
-    background: rgb(40, 40, 40);
+    /* background: rgb(40, 40, 40); */
+    background: url('../image/playlistCreate.gif');
     border-radius: 30px;
     box-shadow: 0 0 20px inset white;
     display: none;

@@ -51,7 +51,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/playlists", (req, res) => {
-  res.render("playlists"); // Render playlists.ejs
+  res.render("playlists",{songs:songs}); // Render playlists.ejs
 });
 
 const port = 8080;
