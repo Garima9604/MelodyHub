@@ -1,6 +1,7 @@
 // Select all the elements in the HTML page and assign them to a variable
 let now_playing = document.querySelector(".now-playing");
 let track_art = document.querySelector(".track-art");
+let track_Art_Img = document.querySelector(".track-art img");
 let track_name = document.querySelector(".track-name");
 let track_artist = document.querySelector(".track-artist");
 
@@ -24,18 +25,46 @@ let curr_track = document.createElement("audio");
 // Define the list of tracks that have to be played
 let track_list = [
   {
-    name: "Still With You",
-    artist: "Jeon Jungkook",
-    image: "Image URL",
-    path: "/songs/2.mp3",
-  },
-  {
-    name: "AAj Phir Jeene Ki ",
+    name: "Aaj Phir Jeene Ki ",
     artist: "Lata Mangeshkar",
     image: "/image/1.jpg",
-    path: "/songs/1.mp3",
+    path: "/songsList/1.mp3",
   },
+  {
+    name: "Still With You",
+    artist: "JJk",
+    image: "/image/2.jpg",
+    path: "/songsList/2.mp3",
+  },
+  {
+    name: "Excuses",
+    artist: "AP Dhillon",
+    image: "/image/3.jpeg",
+    path: "/songsList/3.mp3",
+  },
+  {
+    name: "Ve Haaniyaan",
+    artist: "Avvy Sara",
+    image: "/image/4.jpeg",
+    path: "/songsList/4.mp3",
+  },
+  {
+    name: "Munda Sona Hun Main",
+    artist: "Diljit Dosanjh",
+    image: "/image/5.jpeg",
+    path: "/songsList/5.mp3",
+  }
 ];
+
+// const songs = require('../../seeds/songSeed.js'); // Adjust the path as needed
+
+// // Access songs array from EJS template
+// // This assumes that songs is a global variable available in your EJS template
+// songs.forEach(song => {
+//   console.log(song.name); // Example: Accessing song name
+//   console.log(song.artist); // Example: Accessing song artist
+//   // Use the song data as needed
+// });
 
 function loadTrack(track_index) {
   // Clear the previous seek timer
@@ -49,6 +78,8 @@ function loadTrack(track_index) {
   // Update details of the track
   track_art.style.backgroundImage =
     "url(" + track_list[track_index].image + ")";
+  // Update the src attribute with the image URL from track_list
+  track_Art_Img.src = track_list[track_index].image;
   track_name.textContent = track_list[track_index].name;
   track_artist.textContent = track_list[track_index].artist;
   now_playing.textContent =
@@ -212,26 +243,24 @@ function addItem(value) {
 
   boxDiv.appendChild(icon);
 
-  // Create the figcaption element and set its text content
-  const figcaption = document.createElement("figcaption");
-  figcaption.textContent = `${value}`;
+  const playlistName = document.createElement("a");
+  playlistName.href = '/playlists';
+  playlistName.textContent = `${value}`;
 
-  // Append the image and figcaption elements to the boxDiv
-  // boxDiv.appendChild(img);
-  boxDiv.appendChild(figcaption);
+
+  boxDiv.appendChild(playlistName);
 
   // Append the boxDiv to the desired parent element in the DOM
   // For example, if you want to append it to the body:
   sidebar.appendChild(boxDiv);
 }
 
-
 //QUEUELIST
 
-function showQueueList(){
-  const songList = document.querySelector('.songLists');
+function showQueueList() {
+  const songList = document.querySelector(".songLists");
   // console.log("show queue in js file");
-  songList.style.display = 'block';
+  songList.style.display = "block";
   const lines = document.querySelectorAll(".lines");
   lines.forEach((line) => {
     line.style.opacity = "0.5";
@@ -239,13 +268,88 @@ function showQueueList(){
   songList.style.opacity = "1";
 }
 
-
-function removeQueueList(){
-  const songList = document.querySelector('.songLists');
+function removeQueueList() {
+  const songList = document.querySelector(".songLists");
   // console.log("Remove Queue from js file ");
-  songList.style.display = 'none';
+  songList.style.display = "none";
   const lines = document.querySelectorAll(".lines");
-  lines.forEach((line)=>{
-    line.style.opacity="1"
+  lines.forEach((line) => {
+    line.style.opacity = "1";
   });
+}
+
+
+function toggleSearchBar() {
+  const search_box = document.querySelector(".search_box");
+  const computedStyle = window.getComputedStyle(search_box);
+  const displayPropertyValue = computedStyle.getPropertyValue("display");
+  if (displayPropertyValue === "block") {
+    search_box.style.display = "none";
+  } else {
+    search_box.style.display = "block";
+  }
+}
+
+// Get the search input element
+const searchInput = document.getElementById("searchInput");
+// Function to search for a track in the track_list
+function searchSongs(query) {
+  // Convert the query to lowercase for case-insensitive comparison
+  const searchQuery = query.toLowerCase();
+
+  // Filter the track_list based on the search query
+  const searchResults = track_list.filter((track) => {
+    // Convert track name and artist name to lowercase for case-insensitive search
+    const trackName = track.name.toLowerCase();
+    const artistName = track.artist.toLowerCase();
+
+    // Check if the track name or artist name contains the search query
+    return trackName.includes(searchQuery) || artistName.includes(searchQuery);
+  });
+
+  // Return the search results if any tracks are found, otherwise return a default value
+  return searchResults.length > 0
+    ? searchResults
+    : [
+        {
+          name: "Track Not Found",
+          artist: "Unknown Artist",
+          image: "",
+          path: "",
+        },
+      ];
+}
+
+function displaySearchResults(results) {
+
+  if(results[0].name === "Track Not Found"){
+    results.forEach((song) => {
+      const firstSearchLine = document.querySelector("#firstSearchLine");
+      firstSearchLine.style.display = "block";
+      const li = document.querySelector(".group");
+      li.innerHTML = `
+          <div class="card">
+            No Song Found
+          </div>
+        `;
+    });
+  }else{
+    results.forEach((song) => {
+      const firstSearchLine = document.querySelector("#firstSearchLine");
+      firstSearchLine.style.display = "block";
+      const li = document.querySelector(".group");
+      li.innerHTML = `
+          <div class="card">
+            <img src="${song.image}" alt="songImage">
+            <div class="caption">
+              <p>${song.artist}</p>
+              <div class="playButton">
+                <button class="playButton"><i class="fa-solid fa-play"></i></button>
+                <span class="msg">Play</span>
+              </div>
+            </div>
+          </div>
+        `;
+    });
+  }
 }

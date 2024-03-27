@@ -1,0 +1,21 @@
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 80vh; /* Adjust height as needed */
+    overflow: hidden;
+}
+
+#video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.playlistContent {
+    position: relative;
+    z-index: 1; /* Ensure content is above the video */
+    /* Add your styles for content here */
+}
