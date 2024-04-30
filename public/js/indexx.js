@@ -25,7 +25,7 @@ let curr_track = document.createElement("audio");
 // Define the list of tracks that have to be played
 let track_list = [
   {
-    name: "Aaj Phir Jeene Ki ",
+    name: "Aaj Phir Jeene Ki",
     artist: "Lata Mangeshkar",
     image: "/image/1.jpg",
     path: "/songsList/1.mp3",
@@ -53,18 +53,8 @@ let track_list = [
     artist: "Diljit Dosanjh",
     image: "/image/5.jpeg",
     path: "/songsList/5.mp3",
-  }
+  },
 ];
-
-// const songs = require('../../seeds/songSeed.js'); // Adjust the path as needed
-
-// // Access songs array from EJS template
-// // This assumes that songs is a global variable available in your EJS template
-// songs.forEach(song => {
-//   console.log(song.name); // Example: Accessing song name
-//   console.log(song.artist); // Example: Accessing song artist
-//   // Use the song data as needed
-// });
 
 function loadTrack(track_index) {
   // Clear the previous seek timer
@@ -206,7 +196,6 @@ loadTrack(track_index);
 
 function removeBlock() {
   const new_playlist = document.querySelector(".new-playlist");
-  // console.log("new playlist is removed");
   new_playlist.style.display = "none";
   const lines = document.querySelectorAll(".lines");
   lines.forEach((line) => {
@@ -216,7 +205,6 @@ function removeBlock() {
 
 function openBlock() {
   const new_playlist = document.querySelector(".new-playlist");
-  // console.log("new playlist is opened");
   new_playlist.style.display = "block";
   const lines = document.querySelectorAll(".lines");
   lines.forEach((line) => {
@@ -244,9 +232,8 @@ function addItem(value) {
   boxDiv.appendChild(icon);
 
   const playlistName = document.createElement("a");
-  playlistName.href = '/playlists';
+  playlistName.href = "/playlists";
   playlistName.textContent = `${value}`;
-
 
   boxDiv.appendChild(playlistName);
 
@@ -277,7 +264,6 @@ function removeQueueList() {
     line.style.opacity = "1";
   });
 }
-
 
 function toggleSearchBar() {
   const search_box = document.querySelector(".search_box");
@@ -321,8 +307,7 @@ function searchSongs(query) {
 }
 
 function displaySearchResults(results) {
-
-  if(results[0].name === "Track Not Found"){
+  if (results[0].name === "Track Not Found") {
     results.forEach((song) => {
       const firstSearchLine = document.querySelector("#firstSearchLine");
       firstSearchLine.style.display = "block";
@@ -333,7 +318,7 @@ function displaySearchResults(results) {
           </div>
         `;
     });
-  }else{
+  } else {
     results.forEach((song) => {
       const firstSearchLine = document.querySelector("#firstSearchLine");
       firstSearchLine.style.display = "block";
@@ -342,14 +327,71 @@ function displaySearchResults(results) {
           <div class="card">
             <img src="${song.image}" alt="songImage">
             <div class="caption">
-              <p>${song.artist}</p>
-              <div class="playButton">
+            <span class="naming">
+              <h5 id="song_name">${song.name}</h5>
+              <h5 id="artist_name">${song.artist}</h5>
+            </span>
+              <div class="playbtn">
                 <button class="playButton"><i class="fa-solid fa-play"></i></button>
                 <span class="msg">Play</span>
               </div>
             </div>
           </div>
         `;
+      const searchPlayButton = li.querySelector(".playButton");
+      searchPlayButton.addEventListener("click", () => {
+        const songName = li.querySelector("#song_name").innerText;
+        updatePlayerAndPlay(songName);
+      });
     });
   }
+}
+
+// update the track to the player
+function updatePlayerAndPlay(trackName) {
+  var foundTrack = track_list.find((track) => track.name === trackName);
+  var index = track_list.indexOf(foundTrack);
+  loadTrack(index);
+}
+
+//manage playlist
+
+function openManageList() {
+  const deleteList = document.querySelector(".delete");
+  deleteList.style.display = "block";
+  const lines = document.querySelectorAll(".lines");
+  lines.forEach((line) => {
+    line.style.opacity = "0.5";
+  });
+}
+
+function closeManageList() {
+  const deleteList = document.querySelector(".delete");
+  deleteList.style.display = "none";
+  const lines = document.querySelectorAll(".lines");
+  lines.forEach((line) => {
+    line.style.opacity = "1";
+  });
+}
+
+// showplaylists
+
+function showPlayLists() {
+  const playlist = document.querySelector(".playlist");
+  playlist.style.display = "block";
+  const lines = document.querySelectorAll(".lines");
+  lines.forEach((line) => {
+    line.style.opacity = "0";
+  });
+}
+
+//hide playlists
+
+function hidePlayLists() {
+  const playlist = document.querySelector(".playlist");
+  playlist.style.display = "none";
+  const lines = document.querySelectorAll(".lines");
+  lines.forEach((line) => {
+    line.style.opacity = "1";
+  });
 }

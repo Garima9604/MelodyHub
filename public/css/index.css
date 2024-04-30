@@ -33,11 +33,13 @@ header i {
     margin: auto;
     margin-left: 80%;
 }
-.search_songs{
+
+.search_songs {
     /* border: 2px solid red; */
     display: flex;
 }
-.search_songs input[type="text"]{
+
+.search_songs input[type="text"] {
     height: 40px;
     padding: 15px;
     border-radius: 30px;
@@ -113,21 +115,29 @@ header i {
     cursor: pointer;
 }
 
-.box a{
+.box a {
     color: white;
     text-decoration: none;
-    white-space: nowrap; /* Prevent text from wrapping */
-    overflow: hidden; /* Hide any overflowed content */
-    text-overflow: ellipsis; /* Display ellipsis (...) if the text overflows */
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+    overflow: hidden;
+    /* Hide any overflowed content */
+    text-overflow: ellipsis;
+    /* Display ellipsis (...) if the text overflows */
     font-size: 15px;
 }
-.box a:hover{
+
+.box a:hover {
     /* font-size: 20px; */
     text-shadow: 0 0 5px white;
 }
 
 figcaption {
     cursor: pointer;
+}
+
+.listOfPlaylists {
+    border: 2px solid red;
 }
 
 
@@ -137,7 +147,6 @@ figcaption {
     width: 40vw;
     text-align: center;
     padding-top: 20px;
-    /* background: rgb(40, 40, 40); */
     background: url('../image/playlistCreate.gif');
     border-radius: 30px;
     box-shadow: 0 0 20px inset white;
@@ -162,6 +171,23 @@ figcaption {
     margin-left: 85%;
 }
 
+#manage {
+    color: white;
+    background: #776f6f;
+    cursor: pointer;
+    transition: .3s all ease-in-out;
+    padding: 12px;
+    border-radius: 10px;
+    width: 68%;
+    margin-left: 1.4vw;
+    border-radius: 30px;
+    box-shadow: 0 0 21px white;
+    font-size: 22px;
+    margin-top: 14px;
+    border: 1px solid white;
+}
+
+
 
 
 
@@ -180,7 +206,6 @@ figcaption {
     padding: 10px 5px;
     overflow: hidden;
     overflow-y: scroll;
-    background: url('../image/bg_content.jpg') no-repeat center / cover;
 }
 
 .middle-part::-webkit-scrollbar {
@@ -191,8 +216,8 @@ figcaption {
     padding: 5px;
     box-shadow: 0px -10px 20px -20px white,
         0px 10px 20px -20px white;
-        border-bottom: 2px solid white;
-        margin-bottom: 20px;
+    border-bottom: 2px solid white;
+    margin-bottom: 20px;
 }
 
 .group-name {
@@ -240,6 +265,12 @@ figcaption {
     padding: 0 5px;
     display: flex;
     justify-content: space-between;
+    /* flex-direction: column; */
+}
+
+.information {
+    display: flex;
+    border: 2px solid red;
 }
 
 .caption p {
@@ -277,6 +308,57 @@ figcaption {
     box-shadow: 0 0 25px white;
 }
 
+.delete {
+    height: 60vh;
+    width: 30vw;
+    /* border: 2px solid white; */
+    background: url('../image/delete.jpg');
+    background-size: cover;
+    border-radius: 30px;
+    box-shadow: 0 0 20px white;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 15%;
+    z-index: 99999;
+}
+
+.deleteHead {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 20px 5px 40px;
+}
+
+.deleteHead i {
+    font-size: 30px;
+}
+
+.totalplaylist {
+    border-top: 1px solid white;
+    padding: 5px 20px;
+    list-style: none;
+    overflow-y: scroll;
+}
+
+.totalplaylist::-webkit-scrollbar {
+    display: none;
+}
+
+.list {
+    display: flex;
+    gap: 50%;
+    padding: 5px 0;
+}
+
+.list i {
+    cursor: pointer;
+}
+
+#removeList {
+    cursor: pointer;
+}
 
 
 
@@ -318,7 +400,7 @@ figcaption {
 }
 
 .track-name {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
 }
 
 .track-artist {
@@ -479,17 +561,103 @@ i.fa-step-backward {
     cursor: pointer;
 }
 
-
-
-
- #firstSearchLine{
+#firstSearchLine {
     display: none;
 }
 
-.notFound{
+.notFound {
     display: none;
 }
 
-#removeSearchResults{
+#removeSearchResults {
+    cursor: pointer;
+}
+
+.openPlaylists {
+    cursor: pointer;
+}
+
+.playlist {
+    width: 62vw;
+    /* height: 80vh; */
+    border: 2px solid white;
+    border-radius: 30px;
+    box-shadow: 0 0 20px white;
+    display: none;
+}
+
+.head {
+    display: flex;
+    border-bottom: 1px solid white;
+    padding: 10px;
+}
+
+.playListName {
+    cursor: pointer;
+    font-size: 30px;
+    width: 80vw;
+    text-align: center;
+}
+
+#removePlaylist {
+    cursor: pointer;
+    font-size: 30px;
+    padding: 10px;
+}
+
+.headingList {
+    display: flex;
+    padding: 10px;
+}
+
+.listOfSongs {
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.listOfSongs img {
+    border: 2px solid white;
+    height: 20vh;
+    width: 15vw;
+}
+
+.sno {
+    padding-left: 15px;
+    padding-right: 30px;
+    padding-top: 7vh;
+}
+
+#name {
+    padding-left: 18vw;
+}
+
+#indSong {
+    border-radius: 10px;
+    border: 2px solid white;
+}
+
+.songName {
+    padding-left: 20px;
+    padding-top: 7vh;
+    width: 20vw;
+    margin-left: 10px;
+
+}
+
+#artist {
+    padding-left: 12vw;
+
+}
+
+.artistName {
+    padding-top: 7vh;
+    width: 15vw;
+}
+
+.playPlayList {
+    padding-left: 20px;
+    padding-top: 7vh;
+    font-size: 1.5rem;
     cursor: pointer;
 }
