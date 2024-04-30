@@ -2,146 +2,209 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MelodyHub</title>
 </head>
-<link rel="stylesheet" href="/css/index.css" />
+<link rel="stylesheet" href="/css/index.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <body>
+
     <header>
-        <img src="/image/MelodyHub.png" alt="logo" />
+        <img src="/image/MelodyHub.png" alt="logo">
         <div class="search_songs">
             <input type="text" placeholder="Search for songs..." id="searchInput" class="search_box hidden"
-                name="search" />
+                name="search">
         </div>
-
-        <a href="/login" id="loginLinkk">Login</a>
+        <a href="/login">Login</a>
     </header>
 
     <div class="content">
+
         <div class="sidebar">
+
+            <div class="status">
+                <p>status:<span>🟢 online</span></p>
+            </div>
+
             <i class="fa-solid fa-magnifying-glass sidebar-icon search_icon"></i>
 
             <div class="plus-song">
                 <i class="fa-solid fa-plus sidebar-icon" id="plus"></i>
             </div>
 
+            <div class="edit">
+                <button id="manage"><i class="fa-solid fa-bars" style="color: white;"></i></button>
+            </div>
+
             <div class="box">
                 <i class="fa-solid fa-music"></i>
-                <a href="/playlists">Latest Release</a>
+                <a class="openPlaylists">Latest Release</a>
             </div>
-            <div class="status">
-                <p>status:<span>🟢 online</span></p>
-            </div>
+
+
+
         </div>
 
         <div class="container">
+
             <div class="middle-part">
+
                 <ul class="lines" id="firstSearchLine">
+
                     <div class="group-name">
                         Top Search Results
                         <i class="fa-solid fa-xmark" id="removeSearchResults"></i>
                     </div>
 
-                    <li class="group"></li>
+                    <li class="group">
+
+                    </li>
+
                 </ul>
 
+                <div class="playlist">
+
+                    <div class="head">
+                        <div class="playListName">Latest Release</div>
+                        <i class="fa-solid fa-xmark" id="removePlaylist"></i>
+                    </div>
+
+                    <ul class="heading">
+                        <li class="headingList">
+                            <p>S.NO.</p>
+                            <p id="name">Song Title</p>
+                            <p id="artist">Artist Name</p>
+                        </li>
+                    </ul>
+
+                    <ul class="songListOfPlaylist">
+                        <% songs.forEach((song , index)=> { %>
+                            <li class="listOfSongs">
+                                <p class="sno">
+                                    <%= index+1%>
+                                </p>
+                                <img src="<%= song.image%>" alt="songImage" id="indSong">
+                                <p class="songName" id="name_of_song">
+                                    <%= song.name%>
+                                </p>
+                                <p class="artistName">
+                                    <%= song.artist%>
+                                </p>
+                                <i class="fa-solid fa-play playPlayList"></i>
+                            </li>
+                            <% }); %>
+                    </ul>
+
+                </div>
+
                 <ul class="lines">
+
                     <div class="group-name">Latest Release</div>
 
                     <li class="group">
-                        <div class="card">
-                            <img src="/image/1.jpg" alt="songimage" />
-                            <div class="caption">
-                                <p>Aaj Phir Jeene Ki<br />Lata Mangeshkar</p>
-                                <div class="playbtn">
-                                    <button class="playButton">
-                                        <i class="fa-solid fa-play"></i>
-                                    </button>
-                                    <span class="msg">Play</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="/image/2.jpg" alt="songimage" />
-                            <div class="caption">
-                                <p>Still With You<br />JJK</p>
-                                <div class="playbtn">
-                                    <button class="playButton">
-                                        <i class="fa-solid fa-play"></i>
-                                    </button>
-                                    <span class="msg">Play</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="/image/3.jpeg" alt="songimage" />
-                            <div class="caption">
-                                <p>Excuses<br />AP Dhillon</p>
-                                <div class="playbtn">
-                                    <button class="playButton">
-                                        <i class="fa-solid fa-play"></i>
-                                    </button>
-                                    <span class="msg">Play</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="/image/4.jpeg" alt="songimage" />
-                            <div class="caption">
-                                <p>Ve Haaniyaan<br />Avvy Sara</p>
-                                <div class="playbtn">
-                                    <button class="playButton">
-                                        <i class="fa-solid fa-play"></i>
-                                    </button>
-                                    <span class="msg">Play</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="/image/5.jpeg" alt="songimage" />
-                            <div class="caption">
-                                <p>Munda Sona Hun Main<br />Diljit Dosanjh</p>
-                                <div class="playbtn">
-                                    <button class="playButton">
-                                        <i class="fa-solid fa-play"></i>
-                                    </button>
-                                    <span class="msg">Play</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
 
-                <!-- NEW PLAYLIST  -->
+                        <div class="card">
+                            <img src="/image/1.jpg" alt="songimage" id="songImage">
+                            <div class="caption">
+                                <span class="naming">
+                                    <h5 id="song_name">Aaj Phir Jeene Ki</h5>
+                                    <h5 id="artist_name">Lata Mangeshkar</h5>
+                                </span>
+                                <div class="playbtn">
+                                    <button class="playButton"><i class="fa-solid fa-play"></i></button>
+                                    <span class="msg">Play</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="/image/2.jpg" alt="songimage">
+                            <div class="caption">
+                                <span class="naming">
+                                    <h5 id="song_name">Still With You</h5>
+                                    <h5 id="artist_name">JJK</h5>
+                                </span>
+                                <div class="playbtn">
+                                    <button class="playButton"><i class="fa-solid fa-play"></i></button>
+                                    <span class="msg">Play</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="/image/3.jpeg" alt="songimage">
+                            <div class="caption">
+                                <span class="naming">
+                                    <h5 id="song_name">Excuses</h5>
+                                    <h5 id="artist_name">AP Dhillon</h5>
+                                </span>
+
+                                <div class="playbtn">
+                                    <button class="playButton"><i class="fa-solid fa-play"></i></button>
+                                    <span class="msg">Play</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="/image/4.jpeg" alt="songimage">
+                            <div class="caption">
+                                <span class="naming">
+                                    <h5 id="song_name">Ve Haaniyan</h5>
+                                    <h5 id="artist_name">Avvy Sara</h5>
+                                </span>
+                                <div class="playbtn">
+                                    <button class="playButton"><i class="fa-solid fa-play"></i></button>
+                                    <span class="msg">Play</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="/image/5.jpeg" alt="songimage">
+                            <div class="caption">
+                                <span class="naming">
+                                    <h5 id="song_name">Munda Sona Hun Main</h5>
+                                    <h5 id="artist_name">Diljit Dosanjh</h5>
+                                </span>
+                                <div class="playbtn">
+                                    <button class="playButton"><i class="fa-solid fa-play"></i></button>
+                                    <span class="msg">Play</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
+
+                </ul>
 
                 <div class="new-playlist">
                     <i class="fa-solid fa-xmark" id="cross"></i>
                     <h3>Create New PlayList</h3>
                     <form action="/" method="post">
-                        <input type="text" placeholder="New PlayList" id="input" name="name" required />
+                        <input type="text" placeholder="New PlayList" id="input" name="name" required>
                     </form>
                 </div>
 
                 <div class="songLists">
-                    <h3>
-                        Latest Release
+
+                    <h3>Latest Release
                         <i class="fa-solid fa-xmark" id="remove"></i>
                     </h3>
                     <ul class="songListItems">
                         <% songs.forEach(song=> { %>
                             <li class="songItem">
-                                <h5>
+                                <h5 class="queueSong">
                                     <%=song.name%>
                                 </h5>
-                                <i class="fa-solid fa-play"></i>
+                                <button class="playQueue">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
                             </li>
                             <% }); %>
+
                     </ul>
+
                 </div>
 
                 <ul class="lines">
@@ -149,16 +212,18 @@
                     <li class="group">
                         <% songs.forEach(song=> { %>
                             <div class="card">
-                                <img src="<%= song.image %>" alt="songimage" />
+                                <img src="<%= song.image %>" alt="songimage">
                                 <div class="caption">
-                                    <p>
-                                        <%= song.name %> <br />
-                                            <%= song.artist %>
-                                    </p>
+                                    <span class="naming">
+                                        <h5 id="song_name">
+                                            <%= song.name%>
+                                        </h5>
+                                        <h5 id="artist_name">
+                                            <%= song.artist%>
+                                        </h5>
+                                    </span>
                                     <div class="playbtn">
-                                        <button class="playButton">
-                                            <i class="fa-solid fa-play"></i>
-                                        </button>
+                                        <button class="playButton"><i class="fa-solid fa-play"></i></button>
                                         <span class="msg">Play</span>
                                     </div>
                                 </div>
@@ -166,9 +231,24 @@
                             <% }); %>
                     </li>
                 </ul>
+
+                <div class="delete">
+                    <div class="deleteHead">
+                        <h3>Playlists</h3>
+                        <i class="fa-solid fa-xmark" id="removeList"></i>
+                    </div>
+                    <ul class="totalplaylist">
+                        <li class="list">
+                            Latest Release
+                            <i class="fa-solid fa-trash"></i>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
 
             <div class="player">
+
                 <div class="queue">
                     <div class="playlist-name">Latest Release</div>
                     <i class="fa-solid fa-list-ul" id="queueBtn"></i>
@@ -176,16 +256,13 @@
 
                 <div class="details">
                     <div class="now-playing">PLAYING x OF y</div>
-                    <div class="track-art">
-                        <img src="" alt="currentPlayingSongImage" />
-                    </div>
-                    <div class="track-name" id="trackName" aria-hidden="true">
-                        Track Name
-                    </div>
+                    <div class="track-art"><img src="" alt="currentPlayingSongImage"></div>
+                    <div class="track-name" id="trackName">Track Name</div>
                     <div class="track-artist">Track Artist</div>
                 </div>
 
                 <div class="buttons">
+
                     <button class="prev-track btn" id="previous">
                         <i class="fa fa-step-backward fa-2x"></i>
                     </button>
@@ -197,25 +274,30 @@
                     <button class="next-track btn" id="next">
                         <i class="fa fa-step-forward fa-2x"></i>
                     </button>
+
                 </div>
 
                 <div class="slider_container">
                     <div class="current-time">00:00</div>
-                    <input type="range" min="1" max="100" value="0" class="seek_slider" id="audioSlider" />
+                    <input type="range" min="1" max="100" value="0" class="seek_slider" id="audioSlider">
                     <div class="total-duration">00:00</div>
                 </div>
 
                 <div class="slider_container">
                     <i class="fa fa-volume-down"></i>
-                    <input type="range" min="1" max="100" value="99" class="volume_slider" id="volumeSlider" />
+                    <input type="range" min="1" max="100" value="99" class="volume_slider" id="volumeSlider">
                     <i class="fa fa-volume-up"></i>
                 </div>
+
             </div>
+
         </div>
+
     </div>
 </body>
 <script src="/js/indexx.js"></script>
 <script>
+
     document.addEventListener("DOMContentLoaded", function () {
         // Function to update online/offline status
         function updateStatus(isOnline) {
@@ -263,24 +345,25 @@
         }
     });
 
-    document.addEventListener("DOMContentLoaded", function () {
-        var prevbutton = document.getElementById("previous");
-        prevbutton.addEventListener("click", function () {
+    document.addEventListener('DOMContentLoaded', function () {
+
+        var prevbutton = document.getElementById('previous');
+        prevbutton.addEventListener('click', function () {
             prevTrack();
         });
 
-        var playbutton = document.getElementById("playpause");
-        playbutton.addEventListener("click", function () {
+        var playbutton = document.getElementById('playpause');
+        playbutton.addEventListener('click', function () {
             playpauseTrack();
         });
 
-        var nextbutton = document.getElementById("next");
-        nextbutton.addEventListener("click", function () {
+        var nextbutton = document.getElementById('next');
+        nextbutton.addEventListener('click', function () {
             nextTrack();
         });
 
-        const audioSlider = document.getElementById("audioSlider");
-        audioSlider.addEventListener("change", function () {
+        const audioSlider = document.getElementById('audioSlider');
+        audioSlider.addEventListener('change', function () {
             seekTo();
         });
 
@@ -289,48 +372,83 @@
             setVolume();
         });
 
-        const cross = document.querySelector("#cross");
-        cross.addEventListener("click", function () {
+        const cross = document.querySelector('#cross');
+        cross.addEventListener('click', function () {
             removeBlock();
         });
 
-        const plus = document.querySelector("#plus");
-        plus.addEventListener("click", function () {
+        const plus = document.querySelector('#plus');
+        plus.addEventListener('click', function () {
             openBlock();
         });
 
-        let inputBox = document.querySelector("#input");
-        inputBox.addEventListener("keyup", (event) => {
-            if (event.key == "Enter") {
+        let inputBox = document.querySelector('#input');
+        inputBox.addEventListener('keyup', (event) => {
+            if (event.key == 'Enter') {
                 if (inputBox.value == "") {
                     alert("Please Enter a Value");
                 } else {
                     addItem(inputBox.value);
-                    inputBox.value = "";
+                    inputBox.value = '';
                 }
             }
         });
 
-        const queueBtn = document.querySelector("#queueBtn");
-        queueBtn.addEventListener("click", function () {
+        const queueBtn = document.querySelector('#queueBtn');
+        queueBtn.addEventListener('click', function () {
             showQueueList();
         });
 
-        const removeQueue = document.querySelector("#remove");
-        removeQueue.addEventListener("click", function () {
+        const removeQueue = document.querySelector('#remove');
+        removeQueue.addEventListener('click', function () {
             removeQueueList();
         });
 
-        const search_icon = document.querySelector(".search_icon");
-        search_icon.addEventListener("click", function () {
+        const search_icon = document.querySelector('.search_icon');
+        search_icon.addEventListener('click', function () {
             toggleSearchBar();
         });
 
-        const searchInput = document.querySelector("#searchInput");
-        searchInput.addEventListener("keyup", (event) => {
-            if (event.key == "Enter") {
+        const removeSearchResults = document.querySelector('#removeSearchResults');
+        removeSearchResults.addEventListener('click', function () {
+            const firstSearchLine = document.querySelector('#firstSearchLine');
+            firstSearchLine.style.display = 'none';
+        });
+
+        const playButtons = document.querySelectorAll('.playButton');
+        playButtons.forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                const card = button.closest('.card');
+                const trackName = card.querySelector('#song_name').innerText;
+                updatePlayerAndPlay(trackName);
+            });
+        });
+
+        const playQueue = document.querySelectorAll('.playQueue');
+        playQueue.forEach(function (e) {
+            e.addEventListener('click', function (event) {
+                const list = e.closest('.songItem');
+                const queueSongName = list.querySelector('.queueSong').innerText;
+                updatePlayerAndPlay(queueSongName);
+            });
+        });
+
+        const manageList = document.querySelector('#manage');
+        manageList.addEventListener('click', function () {
+            openManageList();
+        });
+
+        const removeList = document.querySelector('#removeList');
+        removeList.addEventListener('click', function () {
+            closeManageList();
+        });
+
+        const searchInput = document.getElementById('searchInput');
+        const cardContainer = document.querySelector('.card');
+        searchInput.addEventListener('keyup', async (event) => {
+            if (event.key == 'Enter') {
                 if (searchInput.value == "") {
-                    alert("Please enter something to search for!");
+                    alert('Please enter something to search for!');
                 } else {
                     const songSearched = searchSongs(searchInput.value);
                     displaySearchResults(songSearched);
@@ -339,13 +457,26 @@
             }
         });
 
-        const removeSearchResults = document.querySelector(
-            "#removeSearchResults"
-        );
-        removeSearchResults.addEventListener("click", function () {
-            const firstSearchLine = document.querySelector("#firstSearchLine");
-            firstSearchLine.style.display = "none";
+        const openPlaylists = document.querySelector('.openPlaylists');
+        openPlaylists.addEventListener('click', function () {
+            showPlayLists();
         });
+
+        const removePlaylist = document.querySelector('#removePlaylist');
+        removePlaylist.addEventListener('click', function () {
+            hidePlayLists();
+        });
+
+        const playPlayList = document.querySelectorAll('.playPlayList');
+        playPlayList.forEach(function (btn) {
+            btn.addEventListener('click', function (event) {
+                const list = btn.closest('.listOfSongs');
+                const trackName = list.querySelector('#name_of_song').innerText;
+                console.log(trackName);
+                updatePlayerAndPlay(trackName);
+            });
+        });
+
     });
 </script>
 
