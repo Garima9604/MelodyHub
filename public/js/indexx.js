@@ -232,7 +232,7 @@ function addItem(value) {
   boxDiv.appendChild(icon);
 
   const playlistName = document.createElement("a");
-  playlistName.href = "/playlists";
+  playlistName.classList = "openPlaylists";
   playlistName.textContent = `${value}`;
 
   boxDiv.appendChild(playlistName);

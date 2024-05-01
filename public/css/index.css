@@ -224,6 +224,7 @@ figcaption {
     padding: 0 10px;
     font-size: 25px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .group-name:hover {
@@ -255,9 +256,9 @@ figcaption {
 }
 
 .card img {
-    height: 20vh;
+    height: 22vh;
     border-radius: 15px;
-    width: 30vh;
+    width: 15vw;
     border: 2px solid white;
 }
 
@@ -265,7 +266,6 @@ figcaption {
     padding: 0 5px;
     display: flex;
     justify-content: space-between;
-    /* flex-direction: column; */
 }
 
 .information {
@@ -278,12 +278,17 @@ figcaption {
 }
 
 .playButton {
-    margin: 10px;
     font-size: 25px;
     cursor: pointer;
     border: none;
     color: white;
     background: #000;
+    border: 2px solid white;
+    padding: 10px;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    margin-top: -18px;
 }
 
 .msg {
@@ -295,8 +300,8 @@ figcaption {
     position: absolute;
     z-index: 1;
     font-size: 10px;
-    margin-left: -10px;
-    margin-top: 5px;
+    margin-left: -45px;
+    margin-top: 45px;
 }
 
 .playbtn:hover .msg {
@@ -308,10 +313,19 @@ figcaption {
     box-shadow: 0 0 25px white;
 }
 
+.naming {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.fa-circle-plus {
+    font-size: 2rem;
+    position: absolute;
+}
+
 .delete {
     height: 60vh;
     width: 30vw;
-    /* border: 2px solid white; */
     background: url('../image/delete.jpg');
     background-size: cover;
     border-radius: 30px;
@@ -375,16 +389,12 @@ figcaption {
     background-size: cover;
 }
 
-
-
-
 .details {
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
 }
-
 
 .track-art,
 .track-art img {
