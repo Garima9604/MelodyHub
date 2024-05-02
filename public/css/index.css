@@ -96,40 +96,39 @@ header i {
     transform: scale(1.1);
 }
 
-.box {
-    display: flex;
-    /* justify-content: space-between; */
-    justify-content: start;
-    padding: 10px;
-    border-radius: 8px;
-    width: 90%;
-    box-shadow: 0 0 5px white, 0 0 10px white;
-    margin-top: 20px;
-    background: rgb(88, 88, 88);
-    gap: 10px;
+.playListNames {
+    padding-left: 0px;
+    padding-top: 5px;
 }
 
-.box i {
-    font-size: 20px;
-    transition: transform .2s;
-    cursor: pointer;
+.box {
+    border: 2px solid red;
+    list-style: none;
+    padding: 10px 0;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 5px 0;
+    display: flex;
+}
+
+.box:hover {
+    background: #242323;
 }
 
 .box a {
-    color: white;
-    text-decoration: none;
     white-space: nowrap;
-    /* Prevent text from wrapping */
     overflow: hidden;
-    /* Hide any overflowed content */
     text-overflow: ellipsis;
-    /* Display ellipsis (...) if the text overflows */
-    font-size: 15px;
+    cursor: pointer;
+    padding-left: 10px;
 }
 
 .box a:hover {
-    /* font-size: 20px; */
-    text-shadow: 0 0 5px white;
+    text-shadow: 0 0 10px white;
+}
+
+.playListNames i {
+    padding-left: 10px;
 }
 
 figcaption {
@@ -253,6 +252,7 @@ figcaption {
     cursor: pointer;
     transition: transform 0.2s;
     border: 2px solid white;
+    position: relative;
 }
 
 .card img {
@@ -320,8 +320,19 @@ figcaption {
 
 .fa-circle-plus {
     font-size: 2rem;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 50%;
     position: absolute;
+    top: 8%;
+    left: 8%;
+    visibility: hidden;
 }
+
+.card:hover .fa-circle-plus {
+    visibility: visible;
+}
+
 
 .delete {
     height: 60vh;
@@ -533,7 +544,6 @@ i.fa-step-backward {
     top: 20%;
     left: 45%;
     z-index: 99999;
-    /* background: rgb(40, 40, 40); */
     background: url('../image/search.jpg');
     background-position: center;
     background-repeat: no-repeat;

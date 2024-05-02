@@ -333,7 +333,7 @@ function displaySearchResults(results) {
             </span>
               <div class="playbtn">
                 <button class="playButton"><i class="fa-solid fa-play"></i></button>
-                <span class="msg">Play</span>
+                <i class="fa-solid fa-circle-plus addToPlaylist"></i>
               </div>
             </div>
           </div>
@@ -395,3 +395,5 @@ function hidePlayLists() {
     line.style.opacity = "1";
   });
 }
+
+function openFormToAddToPlayList(currSongName) {}

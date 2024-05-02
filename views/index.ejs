@@ -40,14 +40,12 @@
                 <button id="manage"><i class="fa-solid fa-bars" style="color: white;"></i></button>
             </div>
 
-            <li class="box">
-                <i class="fa-solid fa-music"></i>
-                <a class="openPlaylists">
-                    Latest Release
-                </a>
-            </li>
 
             <ul class="playListNames">
+                <li class="box">
+                    <i class="fa-solid fa-music"></i>
+                    <a class="openPlaylists">Latest Release</a>
+                </li>
                 <% uniqueNames.forEach((uniqueName)=> { %>
                     <li class="box">
                         <i class="fa-solid fa-music"></i>
@@ -55,9 +53,9 @@
                             <%= uniqueName%>
                         </a>
                     </li>
-
                     <% }); %>
             </ul>
+
         </div>
 
         <div class="container">
@@ -127,8 +125,7 @@
                                 </span>
                                 <div class="playbtn">
                                     <button class="playButton"><i class="fa-solid fa-play"></i></button>
-                                    <span class="msg">Play</span>
-                                    <!-- <i class="fa-solid fa-circle-plus"></i> -->
+                                    <i class="fa-solid fa-circle-plus addToPlaylist"></i>
                                 </div>
                             </div>
                         </div>
@@ -141,7 +138,7 @@
                                 </span>
                                 <div class="playbtn">
                                     <button class="playButton"><i class="fa-solid fa-play"></i></button>
-                                    <span class="msg">Play</span>
+                                    <i class="fa-solid fa-circle-plus addToPlaylist"></i>
                                 </div>
                             </div>
                         </div>
@@ -154,7 +151,7 @@
                                 </span>
                                 <div class="playbtn">
                                     <button class="playButton"><i class="fa-solid fa-play"></i></button>
-                                    <span class="msg">Play</span>
+                                    <i class="fa-solid fa-circle-plus addToPlaylist"></i>
                                 </div>
                             </div>
                         </div>
@@ -167,7 +164,7 @@
                                 </span>
                                 <div class="playbtn">
                                     <button class="playButton"><i class="fa-solid fa-play"></i></button>
-                                    <span class="msg">Play</span>
+                                    <i class="fa-solid fa-circle-plus addToPlaylist"></i>
                                 </div>
                             </div>
                         </div>
@@ -180,7 +177,7 @@
                                 </span>
                                 <div class="playbtn">
                                     <button class="playButton"><i class="fa-solid fa-play"></i></button>
-                                    <span class="msg">Play</span>
+                                    <i class="fa-solid fa-circle-plus addToPlaylist"></i>
                                 </div>
                             </div>
                         </div>
@@ -235,7 +232,7 @@
                                     </span>
                                     <div class="playbtn">
                                         <button class="playButton"><i class="fa-solid fa-play"></i></button>
-                                        <span class="msg">Play</span>
+                                        <i class="fa-solid fa-circle-plus addToPlaylist"></i>
                                     </div>
                                 </div>
                             </div>
@@ -483,10 +480,19 @@
             btn.addEventListener('click', function (event) {
                 const list = btn.closest('.listOfSongs');
                 const trackName = list.querySelector('#name_of_song').innerText;
-                console.log(trackName);
                 updatePlayerAndPlay(trackName);
             });
         });
+
+        const addToPlaylist = document.querySelectorAll('.addToPlaylist');
+        addToPlaylist.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                const songCard = btn.closest('.card');
+                const currSongName = songCard.querySelector('#song_name').innerText
+                openFormToAddToPlayList(currSongName);
+            });
+        });
+
 
     });
 </script>
