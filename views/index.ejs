@@ -40,11 +40,24 @@
                 <button id="manage"><i class="fa-solid fa-bars" style="color: white;"></i></button>
             </div>
 
-            <div class="box">
+            <li class="box">
                 <i class="fa-solid fa-music"></i>
-                <a class="openPlaylists">Latest Release</a>
-            </div>
+                <a class="openPlaylists">
+                    Latest Release
+                </a>
+            </li>
 
+            <ul class="playListNames">
+                <% uniqueNames.forEach((uniqueName)=> { %>
+                    <li class="box">
+                        <i class="fa-solid fa-music"></i>
+                        <a class="openPlaylists">
+                            <%= uniqueName%>
+                        </a>
+                    </li>
+
+                    <% }); %>
+            </ul>
         </div>
 
         <div class="container">

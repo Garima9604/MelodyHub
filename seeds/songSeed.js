@@ -1,6 +1,6 @@
 // seeds/songSeed.js
-const mongoose = require('mongoose');
-const Song = require('../models/Song');
+const mongoose = require("mongoose");
+const Song = require("../models/Song");
 
 const songs = [
   {
@@ -32,24 +32,21 @@ const songs = [
     artist: "Diljit Dosanjh",
     image: "/image/5.jpeg",
     path: "/songsList/5.mp3",
-  }
+  },
 ];
 
 async function seedSongs() {
   try {
     await Song.insertMany(songs);
-    console.log('Songs seeded successfully');
+    console.log("Songs seeded successfully");
   } catch (error) {
-    console.error('Error seeding songs:', error);
+    console.error("Error seeding songs:", error);
   }
 }
 
 // seedSongs();
 
-// module.exports = seedSongs;
-
-// Export an object containing both songs array and seedSongs function
 module.exports = {
   songs: songs,
-  seedSongs: seedSongs
+  seedSongs: seedSongs,
 };

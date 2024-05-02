@@ -101,7 +101,7 @@ header i {
     /* justify-content: space-between; */
     justify-content: start;
     padding: 10px;
-    border-radius: 25px;
+    border-radius: 8px;
     width: 90%;
     box-shadow: 0 0 5px white, 0 0 10px white;
     margin-top: 20px;

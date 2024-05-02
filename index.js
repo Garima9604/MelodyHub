@@ -87,11 +87,11 @@ app.delete("/delete", async (req, res) => {
   }
 });
 
-app.get("/playlists", (req, res) => {
-  res.render("playlists", { songs: songs }); // Render playlists.ejs
-});
+// app.get("/playlists", (req, res) => {
+//   res.render("playlists", { songs: songs }); // Render playlists.ejs
+// });
 
 const port = 8000;
 app.listen(port, () => {
-  console.log(`Server is running at ${port}`);
+  console.log(`server at https://localhost/${port}`);
 });
