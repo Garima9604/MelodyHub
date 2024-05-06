@@ -56,6 +56,8 @@ let track_list = [
   },
 ];
 
+const queue = [];
+
 function loadTrack(track_index) {
   // Clear the previous seek timer
   clearInterval(updateTimer);
@@ -73,6 +75,7 @@ function loadTrack(track_index) {
   track_name.textContent = track_list[track_index].name;
   track_artist.textContent = track_list[track_index].artist;
   now_playing.textContent =
+    // "PLAYING " + (track_index + 1) + " OF " + track_list.length;
     "PLAYING " + (track_index + 1) + " OF " + track_list.length;
 
   // Set an interval of 1000 milliseconds
@@ -327,13 +330,13 @@ function displaySearchResults(results) {
           <div class="card">
             <img src="${song.image}" alt="songImage">
             <div class="caption">
-            <span class="naming">
-              <h5 id="song_name">${song.name}</h5>
-              <h5 id="artist_name">${song.artist}</h5>
-            </span>
+              <span class="naming">
+                <h5 id="song_name">${song.name}</h5>
+                <h5 id="artist_name">${song.artist}</h5>
+              </span>
               <div class="playbtn">
                 <button class="playButton"><i class="fa-solid fa-play"></i></button>
-                <i class="fa-solid fa-circle-plus addToPlaylist"></i>
+                <button class="addToPlaylist"></button><i class="fa-solid fa-circle-plus"></i></button>
               </div>
             </div>
           </div>
@@ -396,4 +399,62 @@ function hidePlayLists() {
   });
 }
 
-function openFormToAddToPlayList(currSongName) {}
+//add to playlist functions
+
+function closeFormForAddingANewSong() {
+  const addToPlaylistForm = document.querySelector(".addToPlaylistForm");
+  addToPlaylistForm.style.display = "none";
+  const lines = document.querySelectorAll(".lines");
+  lines.forEach((line) => {
+    line.style.opacity = "1";
+  });
+}
+
+function openFormToAddToPlayList(currSongName) {
+  const addToPlaylistForm = document.querySelector(".addToPlaylistForm");
+  addToPlaylistForm.style.display = "block";
+  const selectedSongName = document.querySelector(".selectedSongName");
+  selectedSongName.innerText = `${currSongName}`;
+  // console.log(currSongName);
+  const lines = document.querySelectorAll(".lines");
+  lines.forEach((line) => {
+    line.style.opacity = "0.5";
+  });
+}
+
+// saved to queue
+function saveSongToQueue(nameOfSong) {
+  // console.log("inside : ", nameOfSong);
+  if (queue.length === 0) {
+    queue.push(nameOfSong);
+    displayQueueAdded(nameOfSong);
+    console.log(queue);
+  } else {
+    let lastInQueue = queue[queue.length - 1];
+    if (lastInQueue !== nameOfSong) {
+      queue.push(nameOfSong);
+      displayQueueAdded(nameOfSong);
+      console.log(queue);
+    } else {
+      alert("This song is already in the Queue.");
+    }
+  }
+}
+
+function displayQueueAdded(nameOfSong) {
+  const songListItems = document.querySelector(".songListItems");
+  const li = document.createElement("li");
+  li.classList = "songItem";
+  const h5 = document.createElement("h5");
+  h5.classList = "queueSong";
+  h5.textContent = `${nameOfSong}`;
+  const button = document.createElement("button");
+  button.classList = "playQueue";
+  const icon = document.createElement("i");
+  icon.classList.add("fa-solid", "fa-play");
+  button.appendChild(icon);
+  li.appendChild(h5);
+  li.appendChild(button);
+  songListItems.append(li);
+  // updatePlayerAndPlay(nameOfSong);
+}

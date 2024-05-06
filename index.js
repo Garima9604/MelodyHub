@@ -6,10 +6,10 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/user.routes.js");
 const songRoutes = require("./routes/songs");
-
+// const playList = require("./routes/playlistRoutes.js");
 app.use(bodyParser.json());
 app.use(cookieParser());
-
+// app.use(playList);
 const mongoose = require("mongoose");
 
 const Song = require("./models/Song");
@@ -30,6 +30,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Routes
 app.use(songRoutes);
 app.use(authRoutes);
+
 // Route to add a new playlist
 app.post("/", async (req, res) => {
   const { name } = req.body;
@@ -57,35 +58,8 @@ mongoose
   });
 
 app.get("/", (req, res) => {
-  res.render("index", { songs: songs }); // Pass songs array to the EJS template
+  res.render("index", { songs: songs });
 });
-// // Route to add a new playlist
-// app.post("/update", async (req, res) => {
-//   const { name } = req.body;
-//   try {
-//     if (!name) {
-//       return res.status(400).json({ error: "Playlist name is required" });
-//     }
-
-//     const newPlaylist = new Playlist({ name });
-//     await newPlaylist.save();
-//     // const newPlaylist = await Playlist.create({name});
-//   } catch (error) {
-//     console.error("Error adding playlist:", error);
-//     res.status(500).send("Internal Server Error");
-//   }
-// });
-// Route to delete a playlist
-// app.delete("/delete", async (req, res) => {
-//   const { id } = req.body;
-//   try {
-//     await Playlist.findByIdAndDelete(id);
-//     res.status(204).end();
-//   } catch (error) {
-//     console.error("Error deleting playlist:", error);
-//     res.status(500).send("Internal Server Error");
-//   }
-// });
 
 const port = 8000;
 app.listen(port, () => {

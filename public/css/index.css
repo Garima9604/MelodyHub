@@ -186,10 +186,6 @@ figcaption {
     border: 1px solid white;
 }
 
-
-
-
-
 .container {
     width: 100vw;
     height: 85vh;
@@ -384,9 +380,6 @@ figcaption {
 #removeList {
     cursor: pointer;
 }
-
-
-
 
 .player {
     display: flex;
@@ -599,7 +592,6 @@ i.fa-step-backward {
 
 .playlist {
     width: 62vw;
-    /* height: 80vh; */
     border: 2px solid white;
     border-radius: 30px;
     box-shadow: 0 0 20px white;
@@ -662,12 +654,10 @@ i.fa-step-backward {
     padding-top: 7vh;
     width: 20vw;
     margin-left: 10px;
-
 }
 
 #artist {
     padding-left: 12vw;
-
 }
 
 .artistName {
@@ -680,4 +670,91 @@ i.fa-step-backward {
     padding-top: 7vh;
     font-size: 1.5rem;
     cursor: pointer;
+}
+
+.addToPlaylistForm {
+    border-radius: 20px;
+    box-shadow: 0 0 10px white;
+    height: 75vh;
+    padding: 10px;
+    width: 50vw;
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 20%;
+    background: url('../image/black_bg.jpg');
+    z-index: 999;
+    overflow-x: scroll;
+}
+
+.addToPlaylistForm::-webkit-scrollbar {
+    display: none;
+}
+
+#crossNew {
+    font-size: 1.8rem;
+    cursor: pointer;
+    margin-left: 95%;
+    margin-top: 10px;
+}
+
+.addToPlaylistForm h3 {
+    text-align: center;
+    font-size: 1.3rem;
+    cursor: pointer;
+    /* margin-bottom: 10px; */
+}
+
+.addToPlaylistForm h3:hover {
+    text-shadow: 0 0 10px gray;
+    text-decoration: underline;
+}
+
+.addToPlaylistForm input {
+    width: 50%;
+    border-radius: 20px;
+    outline: none;
+    padding: 10px;
+    margin: 10px 25%;
+    display: inline-block;
+}
+
+.selectedSongName {
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.addToQueue {
+    font-size: 1.5rem;
+    margin: 30px 0;
+}
+
+.add {
+    margin-top: 20px;
+}
+
+.break {
+    display: flex;
+    margin: 10px 0;
+}
+
+.break hr {
+    width: 31%;
+    height: 1px;
+    margin: 14px;
+}
+
+.boxNew {
+    width: 50%;
+    border-radius: 20px;
+    padding: 10px;
+    border: 1px solid white;
+    margin: 10px 25%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+
+.boxNew:hover {
+    background: #292929;
 }

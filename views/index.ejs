@@ -210,9 +210,26 @@
                                 </button>
                             </li>
                             <% }); %>
-
                     </ul>
 
+                </div>
+
+                <div class="addToPlaylistForm">
+                    <i class="fa-solid fa-xmark" id="crossNew"></i>
+                    <h3 class="selectedSongName">Song Name</h3>
+                    <hr>
+                    <h3 class="addToQueue">Add To Queue</h3>
+                    <div class="break">
+                        <hr>Or Add to Existing Playlist
+                        <hr>
+                    </div>
+                    <% uniqueNames.forEach((uniqueName)=> { %>
+                        <li class="boxNew">
+                            <a class="openPlaylistsNew">
+                                <%= uniqueName%>
+                            </a>
+                        </li>
+                        <% }); %>
                 </div>
 
                 <ul class="lines">
@@ -333,20 +350,20 @@
         updateStatus(navigator.onLine);
     });
 
-    console.log("Hello World");
+    // console.log("Hello World");
     document.addEventListener("DOMContentLoaded", function () {
         const loginLink = document.getElementById("loginLinkk");
 
         // Check if either access or refresh token exists
-        console.log("Access Token Cookie:", document.cookie);
+        // console.log("Access Token Cookie:", document.cookie);
         const accessToken = document.cookie
             .split("; ")
             .find((row) => row.startsWith("accessToken="));
         const refreshToken = document.cookie
             .split("; ")
             .find((row) => row.startsWith("refreshToken="));
-        console.log("Access Token Cookie:", accessToken);
-        console.log("Refresh Token Cookie:", refreshToken);
+        // console.log("Access Token Cookie:", accessToken);
+        // console.log("Refresh Token Cookie:", refreshToken);
         if (accessToken || refreshToken) {
             loginLink.textContent = "Logout";
             loginLink.href = "/logout";
@@ -435,8 +452,10 @@
         const playQueue = document.querySelectorAll('.playQueue');
         playQueue.forEach(function (e) {
             e.addEventListener('click', function (event) {
+                console.log('playQueue is clicked');
                 const list = e.closest('.songItem');
                 const queueSongName = list.querySelector('.queueSong').innerText;
+                // console.log(queueSongName);
                 updatePlayerAndPlay(queueSongName);
             });
         });
@@ -484,17 +503,30 @@
             });
         });
 
+        const crossNew = document.querySelector('#crossNew');
+        crossNew.addEventListener('click', () => {
+            closeFormForAddingANewSong();
+        });
+
         const addToPlaylist = document.querySelectorAll('.addToPlaylist');
         addToPlaylist.forEach(function (btn) {
             btn.addEventListener('click', function () {
                 const songCard = btn.closest('.card');
                 const currSongName = songCard.querySelector('#song_name').innerText
+                console.log(currSongName);
+                console.log('addtoPlaylist clicked');
                 openFormToAddToPlayList(currSongName);
             });
         });
 
+        const addToQueue = document.querySelector('.addToQueue');
+        addToQueue.addEventListener('click', () => {
+            const nameOfSong = document.querySelector('.selectedSongName').textContent;
+            saveSongToQueue(nameOfSong);
+        });
 
     });
+
 </script>
 
 </html>
