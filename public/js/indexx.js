@@ -328,7 +328,7 @@ function displaySearchResults(results) {
       const li = document.querySelector(".group");
       li.innerHTML = `
           <div class="card">
-            <img src="${song.image}" alt="songImage">
+            <img src="${song.image}" alt="songimage" id="songImage">
             <div class="caption">
               <span class="naming">
                 <h5 id="song_name">${song.name}</h5>
@@ -336,7 +336,7 @@ function displaySearchResults(results) {
               </span>
               <div class="playbtn">
                 <button class="playButton"><i class="fa-solid fa-play"></i></button>
-                <button class="addToPlaylist"></button><i class="fa-solid fa-circle-plus"></i></button>
+                <i class="fa-solid fa-circle-plus addToPlaylist"></i>
               </div>
             </div>
           </div>
@@ -345,6 +345,11 @@ function displaySearchResults(results) {
       searchPlayButton.addEventListener("click", () => {
         const songName = li.querySelector("#song_name").innerText;
         updatePlayerAndPlay(songName);
+      });
+      const addToPlaylist = li.querySelector(".addToPlaylist");
+      addToPlaylist.addEventListener("click", () => {
+        const playSong = `${song.name}`;
+        openFormToAddToPlayList(playSong);
       });
     });
   }
