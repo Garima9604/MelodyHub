@@ -19,16 +19,21 @@
             <input type="text" placeholder="Search for songs..." id="searchInput" class="search_box hidden"
                 name="search">
         </div>
-        <a href="/login">Login</a>
+        <div class="usernameDisplay">
+            <% if (username) { %>
+                <h4 style="font-size: 1.3rem; margin-top: 10px;">
+                    <%= username %>
+                </h4>
+                <% } else { %>
+                    <h4>Welcome Guest</h4>
+                    <% } %>
+                        <h5>LOGOUT</h5>
+        </div>
     </header>
 
     <div class="content">
 
         <div class="sidebar">
-
-            <!-- <div class="status">
-                <p>status:<span>🟢 online</span></p>
-            </div> -->
 
             <i class="fa-solid fa-magnifying-glass sidebar-icon search_icon"></i>
 
@@ -42,10 +47,6 @@
 
 
             <ul class="playListNames">
-                <li class="box">
-                    <i class="fa-solid fa-music"></i>
-                    <a class="openPlaylists">Latest Release</a>
-                </li>
                 <% uniqueNames.forEach((uniqueName)=> { %>
                     <li class="box">
                         <i class="fa-solid fa-music"></i>
@@ -75,10 +76,12 @@
 
                 </ul>
 
-                <div class="playlist">
 
+
+                <form class="playlist" action="/" method="post">
+                    <input type="hidden" name="action" value="showPlayList">
                     <div class="head">
-                        <div class="playListName">Latest Release</div>
+                        <div class="playListName">PlayList Name</div>
                         <i class="fa-solid fa-xmark" id="removePlaylist"></i>
                     </div>
 
@@ -91,24 +94,13 @@
                     </ul>
 
                     <ul class="songListOfPlaylist">
-                        <% songs.forEach((song , index)=> { %>
-                            <li class="listOfSongs">
-                                <p class="sno">
-                                    <%= index+1%>
-                                </p>
-                                <img src="<%= song.image%>" alt="songImage" id="indSong">
-                                <p class="songName" id="name_of_song">
-                                    <%= song.name%>
-                                </p>
-                                <p class="artistName">
-                                    <%= song.artist%>
-                                </p>
-                                <i class="fa-solid fa-play playPlayList"></i>
-                            </li>
-                            <% }); %>
-                    </ul>
 
-                </div>
+                    </ul>
+                </form>
+
+
+
+
 
                 <ul class="lines">
 
@@ -189,7 +181,8 @@
                 <div class="new-playlist">
                     <i class="fa-solid fa-xmark" id="cross"></i>
                     <h3>Create New PlayList</h3>
-                    <form action="/" method="post">
+                    <form action="/" method="post" id="createNewPlaylist">
+                        <input type="hidden" name="action" value="createPlaylist">
                         <input type="text" placeholder="New PlayList" id="input" name="name" required>
                     </form>
                 </div>
@@ -214,7 +207,7 @@
 
                 </div>
 
-                <div class="addToPlaylistForm">
+                <form action="/" method="post" class="addToPlaylistForm">
                     <i class="fa-solid fa-xmark" id="crossNew"></i>
                     <h3 class="selectedSongName">Song Name</h3>
                     <hr>
@@ -223,14 +216,15 @@
                         <hr>Or Add to Existing Playlist
                         <hr>
                     </div>
-                    <% uniqueNames.forEach((uniqueName)=> { %>
-                        <li class="boxNew">
-                            <a class="openPlaylistsNew">
-                                <%= uniqueName%>
-                            </a>
-                        </li>
-                        <% }); %>
-                </div>
+                    <select name="playlistName" required class="selectOfPlaylistName">
+                        <% uniqueNames.forEach((uniqueName)=> { %>
+                            <option value="<%= uniqueName %>">
+                                <%= uniqueName %>
+                            </option>
+                            <% }); %>
+                    </select>
+                    <button type="submit" class="formbtn">Add to Playlist</button>
+                </form>
 
                 <ul class="lines">
                     <div class="group-name">Liked</div>
@@ -257,18 +251,30 @@
                     </li>
                 </ul>
 
-                <div class="delete">
+                <form class="delete" action="/" method="post">
+                    <input type="hidden" name="action" value="deletePlaylist">
                     <div class="deleteHead">
                         <h3>Playlists</h3>
                         <i class="fa-solid fa-xmark" id="removeList"></i>
                     </div>
                     <ul class="totalplaylist">
                         <li class="list">
-                            Latest Release
-                            <i class="fa-solid fa-trash"></i>
+                            <h4>Latest Release</h4>
                         </li>
+
+                        <% uniqueNames.forEach((uniqueName)=> { %>
+                            <li class="list">
+                                <h4 class="p_name">
+                                    <%= uniqueName%>
+                                </h4>
+                                <button type="submit" name="playlistName" value="<%= uniqueName %>">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </li>
+                            <% }); %>
                     </ul>
-                </div>
+                </form>
+
 
             </div>
 
@@ -322,53 +328,6 @@
 </body>
 <script src="/js/indexx.js"></script>
 <script>
-
-    document.addEventListener("DOMContentLoaded", function () {
-        // Function to update online/offline status
-        function updateStatus(isOnline) {
-            const statusElement = document.querySelector(".status");
-            if (isOnline) {
-                statusElement.innerHTML =
-                    "<span style='color: green; margin:5px; padding-top:16px;'>status:🟢 online</span>";
-            } else {
-                statusElement.innerHTML =
-                    "<span style='color: red;'>status:🔴 offline</span>";
-            }
-        }
-
-        // Event listener for online event
-        window.addEventListener("online", function () {
-            updateStatus(true);
-        });
-
-        // Event listener for offline event
-        window.addEventListener("offline", function () {
-            updateStatus(false);
-        });
-
-        // Initial status check
-        updateStatus(navigator.onLine);
-    });
-
-    // console.log("Hello World");
-    document.addEventListener("DOMContentLoaded", function () {
-        const loginLink = document.getElementById("loginLinkk");
-
-        // Check if either access or refresh token exists
-        // console.log("Access Token Cookie:", document.cookie);
-        const accessToken = document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("accessToken="));
-        const refreshToken = document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("refreshToken="));
-        // console.log("Access Token Cookie:", accessToken);
-        // console.log("Refresh Token Cookie:", refreshToken);
-        if (accessToken || refreshToken) {
-            loginLink.textContent = "Logout";
-            loginLink.href = "/logout";
-        }
-    });
 
     document.addEventListener('DOMContentLoaded', function () {
 
@@ -484,9 +443,37 @@
             }
         });
 
-        const openPlaylists = document.querySelector('.openPlaylists');
-        openPlaylists.addEventListener('click', function () {
-            showPlayLists();
+        const openPlaylists = document.querySelectorAll('.openPlaylists');
+        openPlaylists.forEach(function (btn) {
+            btn.addEventListener('click', async function () {
+                const boxli = btn.closest('.box');
+                const play_list_name = boxli.querySelector('.openPlaylists').innerText;
+                // console.log(play_list_name);
+                const playlist = document.querySelector('.playlist');
+                try {
+                    const response = await fetch('/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ action: 'showPlayList', play_list_name: play_list_name })
+                    });
+                    const data = await response.json();
+                    // console.log('Data.songs : ', data.songs);
+                    showPlayLists(play_list_name);
+                    // console.log('Update playlist called');
+                    updatePlaylist(data.songs);
+
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch playlist');
+                    }
+
+                    // parentPlaylist.remove();
+                } catch (error) {
+                    console.error('Error fetching  playlist:', error);
+                }
+
+            });
         });
 
         const removePlaylist = document.querySelector('#removePlaylist');
@@ -514,7 +501,6 @@
                 const songCard = btn.closest('.card');
                 const currSongName = songCard.querySelector('#song_name').innerText
                 console.log(currSongName);
-                console.log('addtoPlaylist clicked');
                 openFormToAddToPlayList(currSongName);
             });
         });
@@ -526,6 +512,75 @@
         });
 
     });
+    document.addEventListener('DOMContentLoaded', function () {
+        const addToPlaylistForms = document.querySelectorAll('.addToPlaylistForm');
+
+        addToPlaylistForms.forEach(function (form) {
+            form.addEventListener('submit', async function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                const songName = form.querySelector('.selectedSongName').innerText.trim();
+                const playlistName = form.querySelector('select[name="playlistName"]').value.trim();
+                // console.log(songName, playlistName);
+
+                try {
+                    const response = await fetch('/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ action: "addToPlaylist", songName: songName, playlistName: playlistName })
+                    });
+                    console.log(response);
+
+                    if (!response.ok) {
+                        throw new Error('Failed to add song to playlist');
+                    }
+
+                    form.reset();
+
+                } catch (error) {
+                    console.error('Error adding song to playlist:', error);
+                }
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteIcons = document.querySelectorAll('.fa-trash');
+
+        deleteIcons.forEach((icon) => {
+            icon.addEventListener('click', async () => {
+                const parentPlaylist = icon.closest('.list');
+                const playlistName = parentPlaylist.querySelector('.p_name').textContent.trim();
+
+                try {
+                    const response = await fetch('/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ action: 'deletePlaylist', playlistName: playlistName })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to delete playlist');
+                    }
+
+                    parentPlaylist.remove();
+                } catch (error) {
+                    console.error('Error deleting playlist:', error);
+                }
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+    });
+
+
+
 
 </script>
 

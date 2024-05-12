@@ -56,36 +56,36 @@ let track_list = [
   },
 ];
 
-const queue = [];
+const queue = track_list;
 
-function loadTrack(track_index) {
-  // Clear the previous seek timer
-  clearInterval(updateTimer);
-  resetValues();
+// function loadTrack(track_index) {
+//   // Clear the previous seek timer
+//   clearInterval(updateTimer);
+//   resetValues();
 
-  // Load a new track
-  curr_track.src = track_list[track_index].path;
-  curr_track.load();
+//   // Load a new track
+//   curr_track.src = track_list[track_index].path;
+//   curr_track.load();
 
-  // Update details of the track
-  track_art.style.backgroundImage =
-    "url(" + track_list[track_index].image + ")";
-  // Update the src attribute with the image URL from track_list
-  track_Art_Img.src = track_list[track_index].image;
-  track_name.textContent = track_list[track_index].name;
-  track_artist.textContent = track_list[track_index].artist;
-  now_playing.textContent =
-    // "PLAYING " + (track_index + 1) + " OF " + track_list.length;
-    "PLAYING " + (track_index + 1) + " OF " + track_list.length;
+//   // Update details of the track
+//   track_art.style.backgroundImage =
+//     "url(" + track_list[track_index].image + ")";
+//   // Update the src attribute with the image URL from track_list
+//   track_Art_Img.src = track_list[track_index].image;
+//   track_name.textContent = track_list[track_index].name;
+//   track_artist.textContent = track_list[track_index].artist;
+//   now_playing.textContent =
+//     // "PLAYING " + (track_index + 1) + " OF " + track_list.length;
+//     "PLAYING " + (track_index + 1) + " OF " + track_list.length;
 
-  // Set an interval of 1000 milliseconds
-  // for updating the seek slider
-  updateTimer = setInterval(seekUpdate, 1000);
+//   // Set an interval of 1000 milliseconds
+//   // for updating the seek slider
+//   updateTimer = setInterval(seekUpdate, 1000);
 
-  // Move to the next track if the current finishes playing
-  // using the 'ended' event
-  curr_track.addEventListener("ended", nextTrack);
-}
+//   // Move to the next track if the current finishes playing
+//   // using the 'ended' event
+//   curr_track.addEventListener("ended", nextTrack);
+// }
 
 // Function to reset all values to their default
 function resetValues() {
@@ -110,9 +110,6 @@ function playpauseTrack() {
 }
 
 function nextTrack() {
-  // Go back to the first track if the
-  // current one is the last in the track list
-  // console.log("nextTrack() is called");
   if (track_index < track_list.length - 1) track_index += 1;
   else track_index = 0;
 
@@ -120,16 +117,9 @@ function nextTrack() {
   loadTrack(track_index);
   // playTrack();
   playpauseTrack();
-  // If the player was playing, play the new track
-  // curr_track.play();
-  // if (isPlaying) {
-  // }
 }
 
 function prevTrack() {
-  // Go back to the last track if the
-  // current one is the first in the track list
-  // console.log("prevTrack() is called");
   if (track_index > 0) track_index -= 1;
   else track_index = track_list.length - 1;
 
@@ -219,30 +209,21 @@ function openBlock() {
 function addItem(value) {
   const sidebar = document.querySelector(".sidebar");
 
-  // Create the main container div with class 'box'
-  const boxDiv = document.createElement("div");
-  boxDiv.classList.add("box");
+  const boxLi = document.createElement("li");
+  boxLi.classList.add("box");
 
-  // Create the <i> element
   const icon = document.createElement("i");
-
-  // Add classes to the <i> element
   icon.classList.add("fa-solid", "fa-music");
 
-  // Optionally, if you want to use Font Awesome icons with the 'fa' class:
-  icon.classList.add("fa");
-
-  boxDiv.appendChild(icon);
+  boxLi.appendChild(icon);
 
   const playlistName = document.createElement("a");
   playlistName.classList = "openPlaylists";
   playlistName.textContent = `${value}`;
 
-  boxDiv.appendChild(playlistName);
+  boxLi.appendChild(playlistName);
 
-  // Append the boxDiv to the desired parent element in the DOM
-  // For example, if you want to append it to the body:
-  sidebar.appendChild(boxDiv);
+  sidebar.appendChild(boxLi);
 }
 
 //QUEUELIST
@@ -279,24 +260,17 @@ function toggleSearchBar() {
   }
 }
 
-// Get the search input element
 const searchInput = document.getElementById("searchInput");
-// Function to search for a track in the track_list
 function searchSongs(query) {
-  // Convert the query to lowercase for case-insensitive comparison
   const searchQuery = query.toLowerCase();
 
-  // Filter the track_list based on the search query
   const searchResults = track_list.filter((track) => {
-    // Convert track name and artist name to lowercase for case-insensitive search
     const trackName = track.name.toLowerCase();
     const artistName = track.artist.toLowerCase();
 
-    // Check if the track name or artist name contains the search query
     return trackName.includes(searchQuery) || artistName.includes(searchQuery);
   });
 
-  // Return the search results if any tracks are found, otherwise return a default value
   return searchResults.length > 0
     ? searchResults
     : [
@@ -384,13 +358,33 @@ function closeManageList() {
 
 // showplaylists
 
-function showPlayLists() {
-  const playlist = document.querySelector(".playlist");
-  playlist.style.display = "block";
+function showPlayLists(play_list_name) {
+  const playlistForm = document.querySelector(".playlist");
+  const playListName = document.querySelector(".playListName");
+  playListName.textContent = play_list_name;
+
+  playlistForm.style.display = "block";
   const lines = document.querySelectorAll(".lines");
   lines.forEach((line) => {
     line.style.opacity = "0";
   });
+}
+
+function updatePlaylist(playlistData) {
+  console.log("PlaylistData : ", playlistData);
+  const songListOfPlaylist = document.querySelector(".songListOfPlaylist");
+  songListOfPlaylist.innerHTML = "";
+  for (let p in playlistData) {
+    const listItem = document.createElement("li");
+    listItem.classList.add("listOfSongs");
+    listItem.innerHTML = `
+          <img src="${playlistData[p].image}" alt="songImage" id="indSong">
+          <p class="songName" id="name_of_song">${playlistData[p].name}</p>
+          <p class="artistName">${playlistData[p].artist}</p>
+          <i class="fa-solid fa-play playPlayList"></i>
+      `;
+    songListOfPlaylist.appendChild(listItem);
+  }
 }
 
 //hide playlists
@@ -427,17 +421,30 @@ function openFormToAddToPlayList(currSongName) {
   });
 }
 
+function foundSong(nameOfSong) {
+  for (let v in track_list) {
+    // const str = "Ve Haaniyaan";
+    if (track_list[v].name == nameOfSong) {
+      return track_list[v];
+    }
+  }
+}
+
 // saved to queue
 function saveSongToQueue(nameOfSong) {
   // console.log("inside : ", nameOfSong);
   if (queue.length === 0) {
-    queue.push(nameOfSong);
+    let songObj = foundSong(nameOfSong);
+    console.log("Found Song", songObj);
+    queue.push(songObj);
     displayQueueAdded(nameOfSong);
     console.log(queue);
   } else {
     let lastInQueue = queue[queue.length - 1];
     if (lastInQueue !== nameOfSong) {
-      queue.push(nameOfSong);
+      let songObj = foundSong(nameOfSong);
+      // console.log("Found Song", songObj);
+      queue.push(songObj);
       displayQueueAdded(nameOfSong);
       console.log(queue);
     } else {
@@ -462,4 +469,32 @@ function displayQueueAdded(nameOfSong) {
   li.appendChild(button);
   songListItems.append(li);
   // updatePlayerAndPlay(nameOfSong);
+}
+
+function loadTrack(track_index) {
+  // Clear the previous seek timer
+  clearInterval(updateTimer);
+  resetValues();
+
+  // Load a new track
+  curr_track.src = queue[track_index].path;
+  curr_track.load();
+
+  // Update details of the track
+  track_art.style.backgroundImage = "url(" + queue[track_index].image + ")";
+  // Update the src attribute with the image URL from track_list
+  track_Art_Img.src = queue[track_index].image;
+  track_name.textContent = queue[track_index].name;
+  track_artist.textContent = queue[track_index].artist;
+  now_playing.textContent =
+    // "PLAYING " + (track_index + 1) + " OF " + track_list.length;
+    "PLAYING " + (track_index + 1) + " OF " + queue.length;
+
+  // Set an interval of 1000 milliseconds
+  // for updating the seek slider
+  updateTimer = setInterval(seekUpdate, 1000);
+
+  // Move to the next track if the current finishes playing
+  // using the 'ended' event
+  curr_track.addEventListener("ended", nextTrack);
 }

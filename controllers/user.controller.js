@@ -1,5 +1,5 @@
 const User = require("../models/User.js");
-const { songs, seedSongs } = require("../seeds/songSeed");
+// const { songs, seedSongs } = require("../seeds/songSeed");
 
 const generateToken = async (id) => {
   try {
@@ -70,7 +70,6 @@ const loginUser = async (req, res) => {
     .status(200)
     .cookie("accessToken", accessToken, options)
     .cookie("refreshToken", refreshToken, options);
-  //  res.render("index", { songs: songs });
   res.redirect("/");
 };
 
